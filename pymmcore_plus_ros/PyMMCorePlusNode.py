@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from image_transport_py import ImageTransport
 from sensor_msgs.msg import Image
 import rclpy
 from rclpy.node import Node
@@ -16,11 +15,15 @@ class PyMMCorePlusNode(Node):
     def __init__(self):
         super().__init__('py_mmcore_plus_node')
 
-        self.image_transport = ImageTransport(
-            'imagetransport_pub', image_transport='compressed'
-        )
-        self.img_pub = self.image_transport.advertise('camera/image', 10)
+        try:
+            from image_transport_py import ImageTransport
+            self.image_transport = ImageTransport('imagetransport_pub', image_transport='compressed')
+            self.img_pub = self.image_transport.advertise('image', 10)
+        except:
+            self.get_logger().warn("python image transport not found, falling back on publishing sensor_msgs:msg:Image topic")
+            self.img_pub = self.create_publisher(Image, 'image', 10)
 
+        
         self.core = CMMCorePlus.instance()
         
         self.configure()

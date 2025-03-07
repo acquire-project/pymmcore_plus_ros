@@ -23,6 +23,9 @@ class PyMMCorePlusNode(Node):
             self.get_logger().warn("python image transport not found, falling back on publishing sensor_msgs:msg:Image topic")
             self.img_pub = self.create_publisher(Image, 'image', 10)
 
+
+        self.system_config_path = r"C:\Users\Cameron\Desktop\CompMicro_MMConfigs\Dev_Computer\Automaton_noLC_Blackfly_TriggerScope.cfg"
+        self.mda_sequence_path = r"C:\Users\Cameron\justin\mda_seq_tcz.yml"
         
         self.core = CMMCorePlus.instance()
         
@@ -31,15 +34,11 @@ class PyMMCorePlusNode(Node):
         
     def configure(self):
         
-        self.core.loadSystemConfiguration()  #  load demo configuration 
+        self.core.loadSystemConfiguration(self.system_config_path)  #  load demo configuration 
         
-         # see https://pymmcore-plus.github.io/useq-schema/api/ 
-        self.sequence = MDASequence(
-            channels=["DAPI", {"config": "FITC", "exposure": 50}],
-            time_plan={"interval": 2, "loops": 5},
-            z_plan={"range": 4, "step": 0.5},
-            axis_order="tpcz",
-        )
+        # see https://pymmcore-plus.github.io/useq-schema/api/ 
+        self.sequence = MDASequence.from_file(self.mda_sequence_path)
+
     
     def activate(self):
         self.core.mda.events.frameReady.connect(self.on_new_frame)

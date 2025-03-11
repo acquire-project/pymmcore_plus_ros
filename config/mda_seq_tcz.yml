@@ -1,0 +1,15 @@
+axis_order: tpcz
+channels:
+  - group: LF Channel
+    config: State0
+    exposure: 10
+  - group: LF Channel
+    config: State1
+    exposure: 1
+time_plan:
+  - interval: 0:00:02
+    loops: 5
+z_plan:
+  top: 30
+  bottom: 0
+  step: 3

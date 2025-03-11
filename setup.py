@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'PyMMCorePlusNode = pymmcore_plus_ros.PyMMCorePlusNode:main'
+            'pymmcore_plus_node = pymmcore_plus_ros.pymmcore_plus_node:main'
         ],
     },
 )

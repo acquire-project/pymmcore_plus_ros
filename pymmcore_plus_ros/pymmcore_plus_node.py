@@ -49,7 +49,7 @@ class PyMMCorePlusNode(Node):
         # path to MDA sequence file (yaml)
         self.declare_parameter(
             "mda_sequence_path", 
-            r"C:\Users\Cameron\justin\mda_seq_cz.yml",
+            "",
             ParameterDescriptor(
                 type=ParameterType.PARAMETER_STRING,
                 description='Path to MDA sequence. See https://pymmcore-plus.github.io/useq-schema/api/ '

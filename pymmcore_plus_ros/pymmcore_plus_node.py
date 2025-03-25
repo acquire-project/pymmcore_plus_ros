@@ -88,7 +88,7 @@ class PyMMCorePlusNode(Node):
         if data.dtype == np.uint8:
             image_msg.encoding = 'mono8'
         elif data.dtype == np.uint16:
-            image_msg.encoding == 'mono16'
+            image_msg.encoding = 'mono16'
         else:
             raise TypeError("Only uint8 & uint16 types are supported.")
             

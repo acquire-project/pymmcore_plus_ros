@@ -21,13 +21,9 @@ class PyMMCorePlusNode(Node):
             self.image_transport = ImageTransport('imagetransport_pub', image_transport='compressed')
             self.img_pub = self.image_transport.advertise('image_raw', 10)
         except:
-            self.get_logger().warn("python image transport not found, falling back on publishing sensor_msgs:msg:Image topic")
+            self.get_logger().warning("python image transport not found, falling back on publishing sensor_msgs:msg:Image topic")
             self.img_pub = self.create_publisher(Image, 'image_raw', 10)
 
-
-        # self.system_config_path = r"C:\Users\Cameron\Desktop\CompMicro_MMConfigs\Dev_Computer\Automaton_noLC_Blackfly_TriggerScope.cfg"
-        # self.mda_sequence_path = r"C:\Users\Cameron\justin\mda_seq_cz.yml"
-        
         self.core = CMMCorePlus.instance()
         
         self.declare_my_parameters()
